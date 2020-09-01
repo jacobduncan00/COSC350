@@ -1,0 +1,5 @@
+1234 Jacob Duncan 20 123-456-7890
+4321 Blaine Mason 20 123-989-1232
+
+Grabs the line with the word duncan and pipes it into duncan.txt
+grep Duncan student.txt > duncan.txt

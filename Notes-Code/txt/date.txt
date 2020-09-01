@@ -1,0 +1,5 @@
+This file was created with >> redirecting input from the command line
+
+Command: date >> date.txt
+
+Tue Sep  1 14:45:44 EDT 2020
