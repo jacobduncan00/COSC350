@@ -16,7 +16,7 @@ while [ $input -lt 5 -o $input -gt 9 ]; do
 done
 
 # If we got past the while loop, we have a number between 5 and 9 (inclusive)
-# Then we print out the value triangle
+# Then we print out the value triangle by printing spaces and numerical values
 for i in $(seq 1 $input); do
   for j in $(seq $i $input); do
     echo -n " "

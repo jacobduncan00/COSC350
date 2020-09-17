@@ -9,13 +9,14 @@ if [ $# -ne 1 ]; then
   echo "You need to pass one numerical argument"
   exit 1
 else
-  # Turn out argument into base 10 form
-  num=$((10#$1))
+  # Assign first positional parameter to num, we use $1 because we know there is
+  # only 1 parameter passed to this function
+  num=$1
   sum=0
-  # Sum all the numbers together
   while [ $num -gt 0 ]; do
-    sum=$((sum + num % 10))
-    num=$((num / 10))
+    rem=`expr $num % 10` # Get remainder
+    sum=`expr $sum + $rem` # Add to sum
+    num=`expr $num / 10` # Get next digit in number
   done
   echo "Sum of digits for number is $sum"
 fi

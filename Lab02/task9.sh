@@ -27,7 +27,7 @@ if [ -d $directory ]; then
   # User only has 3 chances to enter a correct file name.
   # cannot just do -e because the file has to be readable because 
   # we are going to need to check if a word exists in it, so we need to be 
-  # able to read from the file. 
+  # able to read from the file, so that must be our second condition. 
   until [ $attempt -eq 3 -o -r $file_name ] ; do 
     echo -n "No file found with that name. Enter the name of the file: "
     read file_name
