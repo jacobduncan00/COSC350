@@ -28,7 +28,7 @@ if [ -d $directory ]; then
   # cannot just do -e because the file has to be readable because 
   # we are going to need to check if a word exists in it, so we need to be 
   # able to read from the file. 
-  until [ $attempt -eq 3 ] ; do 
+  until [ $attempt -eq 3 -o -r $file_name ] ; do 
     echo -n "No file found with that name. Enter the name of the file: "
     read file_name
 
