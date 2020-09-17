@@ -11,3 +11,15 @@ for i in $(seq 1 5); do
   echo                                                                                                                                
 done                                                                                                                                                                                                                                                                          
 exit 0   
+
+'''''''''''''
+OUTPUT
+
+./task6a.sh 
+1
+22
+333
+4444
+55555
+''''''''''''
+

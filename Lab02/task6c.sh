@@ -28,3 +28,22 @@ for i in $(seq 1 $input); do
 done
 
 exit 0 
+
+'''''''''''''''''''''''''''''''''
+OUTPUT
+
+./task6c.sh
+Enter a number between 5 and 9: 0
+Invalid entry [5-9 only]!
+Enter a number between 5 and 9: 1
+Invalid entry [5-9 only]!
+Enter a number between 5 and 9: 10
+Invalid entry [5-9 only]!
+Enter a number between 5 and 9: 6
+      1 
+     2 2 
+    3 3 3 
+   4 4 4 4 
+  5 5 5 5 5 
+ 6 6 6 6 6 6 
+'''''''''''''''''''''''''''''''''

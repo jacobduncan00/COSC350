@@ -1,11 +1,9 @@
-# Task 1
-
-### 1. Write down the value of your PS1 environment variable as well as the file in which it was set.
+1. Write down the value of your PS1 environment variable as well as the file in which it was set.
 
 PS1 = \s-\v\$
 File it was in = /etc/bashrc
 
-### 2.Write down the values of the above environment variables on your Linux machine. Indicate any that have no value.
+2. Write down the values of the above environment variables on your Linux machine. Indicate any that have no value.
 
 EDITOR = No Value
 HOME = /Users/jake

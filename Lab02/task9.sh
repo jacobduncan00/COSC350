@@ -62,9 +62,37 @@ if [ -d $directory ]; then
   # or the file did not exist
   else 
     echo "$file_name does not exist or is not valid"
+    exit
   fi
 
 else 
   echo "$directory does not exists or is not valid"
   exit
 fi
+
+'''''''''''''''
+OUTPUT
+
+./task9.sh 
+Enter the directory the file lives in: ~/test
+/Users/jake/test does not exists or is not valid
+
+./task9.sh
+Enter the directory the file lives in: ~/src/cosc350/Lab02
+Enter the name of the file: foo
+No file found with that name. Enter the name of the file: bar
+No file found with that name. Enter the name of the file: baz
+baz does not exist or is not valid
+
+./task9.sh 
+Enter the directory the file lives in: ~/src/cosc350/Lab02
+Enter the name of the file: tester
+Enter a word to search in the file: einstein
+einstein NOT FOUND
+
+/task9.sh 
+Enter the directory the file lives in: ~/src/cosc350/Lab02
+Enter the name of the file: tester
+Enter a word to search in the file: system
+system FOUND!
+'''''''''''''''

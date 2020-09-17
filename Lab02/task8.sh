@@ -22,3 +22,16 @@ else
 fi
 
 exit 0
+
+'''''''''''''''''''''''''''''''''''''''
+OUTPUT
+
+./task8.sh 
+You need to pass one numerical argument
+
+./task8.sh 56 56
+You need to pass one numerical argument
+
+./task8.sh 56
+Sum of digits for number is 11
+'''''''''''''''''''''''''''''''''''''''
