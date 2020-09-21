@@ -14,9 +14,9 @@ else
   num=$1
   sum=0
   while [ $num -gt 0 ]; do
-    rem=`expr $num % 10` # Get remainder
-    sum=`expr $sum + $rem` # Add to sum
-    num=`expr $num / 10` # Get next digit in number
+    rem=`expr $num % 10` 
+    sum=`expr $sum + $rem` 
+    num=`expr $num / 10` 
   done
   echo "Sum of digits for number is $sum"
 fi

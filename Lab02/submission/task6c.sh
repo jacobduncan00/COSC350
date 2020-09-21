@@ -9,7 +9,7 @@ echo -n "$prompt"
 read input
 
 # Check if the number entered is between 5 and 9
-while [ $input -lt 5 -o $input -gt 9 ]; do
+while [ $input -lt 5 ] || [ $input -gt 9 ]; do
   echo "Invalid entry [5-9 only]!"
   echo -n "$prompt"
   read input
