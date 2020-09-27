@@ -60,3 +60,7 @@ int main(int argc, char *argv[])
   printf("Sum: %d\n", sum);
   exit(0);
 }
+
+/*
+How to run: gcc task7.c -> ./a.out num1, num2, num3, ...
+*/
