@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     printf("ERROR: Input file error!");
     exit(1);
   }
-  int outputFile = open("task2output", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IWGRP);
+  int outputFile = open("task2output", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
   if (outputFile < 0)
   {
     printf("ERROR: Output file error!");
