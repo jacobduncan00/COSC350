@@ -1,3 +1,8 @@
+//Jacob Duncan
+//Sept 29, 2020
+//Lab3
+//task1.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -15,7 +20,3 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
-
-/*
-How to run?: ./a.out < foo > clone
-*/

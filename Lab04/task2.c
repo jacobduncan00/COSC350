@@ -46,11 +46,11 @@ int main(int argc, char *argv[])
   }
   while (read(inputFile, buf1, 1) > 0)
   {
-    if (buf1[0] == ' ' || buf1[0] == '\n')
+    if (buf1[0] == ' ' || buf1[0] == '\n') // ' ' == (char)0 || '\n' == (char)127
     {
       buf2[curr] = '\0';
       asciiToChar(outputFile, buf2);
-      curr = 0;
+      curr = 0; // reset back to 0
     }
     else
     {

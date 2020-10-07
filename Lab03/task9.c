@@ -1,3 +1,8 @@
+//Jacob Duncan
+//Sept 29, 2020
+//Lab3
+//task9.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -49,7 +54,3 @@ int main(int argc, char *argv[])
   close(inputFileCopy);
   exit(0);
 }
-
-/*
-How to run: gcc task9.c -> ./a.out fileName
-*/

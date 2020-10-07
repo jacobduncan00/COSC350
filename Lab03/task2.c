@@ -1,3 +1,8 @@
+//Jacob Duncan
+//Sept 29, 2020
+//Lab3
+//task2.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -27,9 +32,9 @@ int main()
 	}
 
 	// Read byte by byte
-	while (read(inputFile, &buf, 1) == 1)
+	while (read(inputFile, &buf, 1) == 1) // returns number of bytes actually read so it should be 1
 	{
-		write(outputFile, &buf, 1);
+		write(outputFile, &buf, 1); // write that one byte in the buffer to the output file
 	}
 
 	close(inputFile);

@@ -1,3 +1,8 @@
+//Jacob Duncan
+//Sept 29, 2020
+//Lab3
+//task8.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -31,14 +36,10 @@ int main(int argc, char *argv[])
   while (read(inputFile, &buf, 1) == 1)
   {
     num = (int)buf;
-    printf("%d", num);
+    printf("%d ", num); // need space here in order to space out the ascii numbers in the output file
   }
   printf("");
   close(inputFile);
   close(outputFile);
   exit(0);
 }
-
-/*
-How to run: gcc task8.c -> ./a.out inputFileName outputFileName
-*/

@@ -1,3 +1,8 @@
+//Jacob Duncan
+//Sept 29, 2020
+//Lab3
+//task5.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

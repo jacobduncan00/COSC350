@@ -1,13 +1,18 @@
+//Jacob Duncan
+//Sept 29, 2020
+//Lab3
+//task7.c
+
 #include <stdio.h>
 #include <stdlib.h>
 
 extern int errno;
 
-int toString(char a[])
+int toString(char str[])
 {
-  int c, sign, offset, n;
+  int sign, offset;
 
-  if (a[0] == '-')
+  if (str[0] == '-')
   { // Handle negative integers
     sign = -1;
   }
@@ -21,11 +26,11 @@ int toString(char a[])
     offset = 0;
   }
 
-  n = 0;
+  int n = 0;
 
-  for (c = offset; a[c] != '\0'; c++)
+  for (int i = offset; str[i] != '\0'; i++)
   {
-    n = n * 10 + a[c] - '0';
+    n = n * 10 + str[i] - '0';
   }
 
   if (sign == -1)
@@ -38,7 +43,6 @@ int toString(char a[])
 
 int main(int argc, char *argv[])
 {
-  // Need to somehow check if arguments are number c-strings, not actual strings
   if (argc == 1)
   {
     printf("[ERROR NO.%d] There is not at least one integer on the command line.\n", errno);
@@ -60,7 +64,3 @@ int main(int argc, char *argv[])
   printf("Sum: %d\n", sum);
   exit(0);
 }
-
-/*
-How to run: gcc task7.c -> ./a.out num1, num2, num3, ...
-*/
