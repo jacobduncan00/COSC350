@@ -33,8 +33,8 @@ int main(int argc, char *argv[])
     exit(2);
   }
 
-  int size = lseek(fd, 0, SEEK_END); //get size of line in the file
-  lseek(fd, 0, SEEK_SET);            //reset cursor position
+  int size = lseek(fd, 0, SEEK_END);
+  lseek(fd, 0, SEEK_SET);
 
   char buf, str[size];
   int i = 0;

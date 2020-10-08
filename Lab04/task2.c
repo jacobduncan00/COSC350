@@ -46,11 +46,15 @@ int main(int argc, char *argv[])
   }
   while (read(inputFile, buf1, 1) > 0)
   {
-    if (buf1[0] == ' ' || buf1[0] == '\n') // ' ' == (char)0 || '\n' == (char)127
+    if (buf1[0] == ' ') // ' ' == (char)0
     {
       buf2[curr] = '\0';
       asciiToChar(outputFile, buf2);
       curr = 0; // reset back to 0
+    }
+    else if (buf1[0] == '\n') // '\n' == (char)127
+    {
+      write(outputFile, "\n", 1);
     }
     else
     {
