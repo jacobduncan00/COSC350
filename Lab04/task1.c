@@ -1,7 +1,7 @@
-//Jacob Duncan
-//Sept 29, 2020
-//lab4
-//task1.c
+// Jacob Duncan
+// October 8, 2020
+// lab4
+// task1.c
 
 #include <stdio.h>
 #include <unistd.h>
@@ -11,10 +11,13 @@
 #include <stdlib.h>
 
 //convert string to integer
-int convertToInt(char *str, int n);
+int convertStrToInt(char *str, int n);
 
 //convert integer to string
-int convertToStr(char *str, int x);
+int convertIntToStr(char *str, int x);
+
+// checks if int is a digit in ASCII
+int isDigit(int c);
 
 int main(int argc, char *argv[])
 {
@@ -24,59 +27,59 @@ int main(int argc, char *argv[])
     exit(1);
   }
 
-  int fd; //file descriptor
-
-  //open given file for read only
-  if ((fd = open(argv[1], O_RDONLY)) < 0)
+  int inputFile;
+  if ((inputFile = open(argv[1], O_RDONLY)) < 0)
   {
     printf("Open %s file error\n", argv[1]);
     exit(2);
   }
 
-  int size = lseek(fd, 0, SEEK_END);
-  lseek(fd, 0, SEEK_SET);
+  int size = lseek(inputFile, 0, SEEK_END); // Get size of file
+  lseek(inputFile, 0, SEEK_SET);            // Reset offset to beginning
 
   char buf, str[size];
-  int i = 0;
+  int curr = 0;
 
-  while ((read(fd, &buf, 1)) == 1)
+  while ((read(inputFile, &buf, 1)) == 1)
   {
-    if (buf >= '0' && buf <= '9') //if character read ranges 0-9 add to str
+    if (isDigit(buf)) // if character is a number
     {
-      str[i] = buf;
-      i++;
+      str[curr] = buf;
+      curr++;
     }
   }
-  close(fd);
+  close(inputFile);
 
-  int newSize = i;
-  char str2[newSize];
-
-  int x = convertToInt(str, newSize); //convert to int
-
-  x += 10; //add 10
-
-  convertToStr(str2, x); //convert to string
-
-  write(1, str2, i); //write to console
-  printf("\n");
+  int num = convertStrToInt(str, curr);
+  num += 10;
+  convIntToStr(str, num);
+  write(1, str, curr);
 
   return 0;
 }
 
-int convertToInt(char *str, int n)
+int convertStrToInt(char *str, int n)
 {
   int num = 0;
   for (int i = 0; i < n; i++)
   {
-    num = num * 10 + str[i] - '0';
+    num = (num * 10) + (str[i] - 48);
   }
 
   return num;
 }
 
-int convertToStr(char *str, int x)
+int convIntToStr(char *str, int x)
 {
   sprintf(str, "%d", x);
   return (strlen(str));
+}
+
+int isDigit(int c)
+{
+  if (c >= 48 && c <= 57) // if int is an ASCII number
+  {
+    return -1;
+  }
+  return 0;
 }

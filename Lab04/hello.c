@@ -5,6 +5,7 @@
 
 int main()
 {
+
   char *path1 = "/mnt/linuxlab/home/jduncan5/Dir1";
   char *path2 = "/mnt/linuxlab/home/jduncan5/Dir2";
   char *path21 = "/mnt/linuxlab/home/jduncan5/Dir2/Dir21";

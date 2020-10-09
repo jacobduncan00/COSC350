@@ -32,13 +32,30 @@ int main(int argc, char *argv[])
     printf("ERROR: Output file error!");
     exit(1);
   }
-  dup2(outputFile, 1);
-  while (read(inputFile, &buf, 1) == 1)
+  if (inputFile > 0 && outputFile > 0)
   {
-    num = (int)buf;
-    printf("%d ", num); // need space here in order to space out the ascii numbers in the output file
+    dup2(outputFile, 1);
+    while ((num = read(inputFile, &buf, 1)) > 0)
+    {
+      if ((int)buf == 10)
+      {
+        printf("\n");
+      }
+      else if (buf == ' ')
+      {
+        printf("%d ", (int)buf); // this should be 32
+      }
+      else if (buf != ' ')
+      {
+        num = (int)buf;
+        printf("%d ", num);
+      }
+    }
   }
-  printf("");
+  else
+  {
+    printf("ERROR: Error reading input and/or output file!");
+  }
   close(inputFile);
   close(outputFile);
   exit(0);
