@@ -8,7 +8,6 @@
 #include <fcntl.h>
 #include <ctype.h>
 #include <string.h>
-#include <stdlib.h>
 
 //convert string to integer
 int convertStrToInt(char *str, int n);
