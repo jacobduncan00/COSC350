@@ -1,3 +1,10 @@
+/*
+Jacob Duncan
+Lab06
+Task 4
+forkExec.c
+*/
+
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -43,10 +50,7 @@ int main(int argc, char *argv[])
     perror("fork failed");
     exit(1);
   case 0:
-    if (execlp("./child", "This is the child", Nc, Tc) < 0)
-    {
-      printf("ERROR: Could not run child process.\n");
-    }
+    printf("Exec returned: %d\n", execlp("./child", "This is the child", argv[1], argv[3], (char *)0));
     break;
   default:
     message = "This is the parent";

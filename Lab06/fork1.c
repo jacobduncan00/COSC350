@@ -1,3 +1,10 @@
+/*
+Jacob Duncan
+Lab06
+Task 2
+fork1.c
+*/
+
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -32,7 +39,7 @@ int main(int argc, char *argv[])
   int Tc = stringtoint(argv[3]);
   int Tp = stringtoint(argv[4]);
 
-  printf("fork program starting\n");
+  printf("Starting fork\n");
   pid = fork();
 
   int sleepTime;

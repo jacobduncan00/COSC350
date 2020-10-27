@@ -1,3 +1,10 @@
+/*
+Jacob Duncan
+Lab06
+Task 4
+child.c
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -18,26 +25,25 @@ int stringtoint(char *c)
   return num;
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-  pid_t pid;
-  int n;
   if (argc != 3)
   {
     printf("ERROR: Expected 3 arguments!\n");
-    printf("Example: ./child  [message] [Nc] [Tc]\n");
+    printf("Example: ./child [message] [Nc] [Tc]\n");
     return -1;
   }
+  pid_t pid = getpid();
+  char *message = argv[0];
+  int Nc = stringtoint(argv[1]);
+  int Tc = stringtoint(argv[2]);
+  int n = Nc;
 
-  char *message = argv[1];
-  int Nc = stringtoint(argv[2]);
-  int Tc = stringtoint(argv[3]);
-
-  for (; Nc > 0; Nc--)
+  for (; n > 0; n--)
   {
-    printf("%s  pid: %d\n", message, getpid());
+    printf("%s | pid: %d\n", message, pid);
     sleep(Tc);
   }
 
-  return 0;
+  exit(37);
 }
