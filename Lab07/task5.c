@@ -1,41 +1,41 @@
-/*
- * Jacob Duncan
+/* Jacob Duncan
  * Lab 07
  * Task 5
  * task5.c
- */
+ *    
+*/
 
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <signal.h>
 
-int main()
+ int main()
 {
-	sigset_t mask2, mask3, orig_mask;
-	
-	sigemptyset(&mask2);
-	sigemptyset(&mask3);
+		sigset_t mask, mask2, orig_mask;
+			
+		sigemptyset(&mask); // clear signal set
+		sigemptyset(&mask2); // clear signal set
 
-	sigaddset(&mask2, 2);
-	sigaddset(&mask3, 3);
+		sigaddset(&mask, 2); 
+		sigaddset(&mask2, 3);
 
-	sigprocmask(SIG_BLOCK, &mask2, &orig_mask);
-	sigprocmask(SIG_BLOCK, &mask3, &orig_mask);
+		sigprocmask(SIG_BLOCK, &mask, &orig_mask); // add blocking for mask
+		sigprocmask(SIG_BLOCK, &mask2, &orig_mask); // add blocking for mask2
 
-	for(int i = 1; i <= 5; i++)
-	{
-		printf("%d\n", i);
-		sleep(1);
-	}
+		for(int i = 1; i <= 5; i++) // loop 5 print and wait 5 seconds
+		{
+			printf("%d\n", i);
+			sleep(1);
+		}
 
-	sigprocmask(SIG_UNBLOCK, &mask3, &orig_mask);
+		sigprocmask(SIG_UNBLOCK, &mask2, &orig_mask); // unblock mask2
 
-	for(int i = 1; i <= 5; i++)
-	{
-		printf("%d\n", i);
-		sleep(1);
-	}
+		for(int i = 1; i <= 5; i++) // loop 5 print and wait 5 seconds
+		{
+			printf("%d\n", i);
+			sleep(1);
+		}
 
-	exit(0);
+		exit(0);
 }
