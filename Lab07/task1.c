@@ -26,17 +26,14 @@ int main()
 	pid = fork();
 	switch(pid) {
 		case -1:
-			/* Failure */
 			perror("fork failed");
 			exit(1);
 		case 0:
-			/* child */
 			sleep(5);
 			kill(getppid(), SIGALRM);
 			exit(0);
 	}
 
-	/* if we get here we are the parent process */
 	printf("waiting for alarm to go off\n");
 	struct sigaction act;
 	memset(&act, 0, sizeof(act));

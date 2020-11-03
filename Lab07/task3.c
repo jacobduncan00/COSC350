@@ -1,6 +1,6 @@
 /*
  * Jacob Duncan
- * Lab07
+ * Lab 07
  * Task 3
  * task3.c
  */
