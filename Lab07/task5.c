@@ -10,6 +10,10 @@
 #include <stdio.h>
 #include <signal.h>
 
+void handler(int sig) {
+	signal(SIGQUIT, SIG_DFL);
+}
+
  int main()
 {
 		sigset_t mask, mask2, orig_mask;
@@ -20,8 +24,8 @@
 		sigaddset(&mask, SIGINT); 
 		sigaddset(&mask2, SIGQUIT);
 
-		sigprocmask(SIG_BLOCK, &mask, &orig_mask); // add blocking for mask
-		sigprocmask(SIG_BLOCK, &mask2, &orig_mask); // add blocking for mask2
+		sigprocmask(SIG_BLOCK, &mask, &orig_mask); // add blocking for SIGINT 
+		sigprocmask(SIG_BLOCK, &mask2, &orig_mask); // add blocking for SIGQUIT 
 
 		for(int i = 1; i <= 5; i++) // loop 5 print and wait 5 seconds
 		{
@@ -29,7 +33,19 @@
 			sleep(1);
 		}
 
-		sigprocmask(SIG_UNBLOCK, &mask2, &orig_mask); // unblock mask2
+		signal(SIGQUIT, handler);
+		signal(SIGINT, handler);
+
+		sigprocmask(SIG_UNBLOCK, &mask2, &orig_mask); // unblock SIGQUIT 
+
+		sigemptyset(&mask); // clear signal set
+		sigemptyset(&mask2); // clear signal set
+
+		sigaddset(&mask, SIGINT); 
+		sigaddset(&mask2, SIGQUIT);
+
+		sigprocmask(SIG_BLOCK, &mask, &orig_mask); // add blocking for SIGINT again
+
 
 		for(int i = 1; i <= 5; i++) // loop 5 print and wait 5 seconds
 		{

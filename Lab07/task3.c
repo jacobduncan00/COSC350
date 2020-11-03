@@ -16,25 +16,36 @@
 
 int main(){
 
- umask(0);
- int fd1 = open("foo", O_CREAT | O_RDWR, 0666);
- int fd2 = dup(fd1);
- pid_t pid = fork();
+	pid_t pid;
+	int fd1, fd2;
+	char buf;
 
- if(pid == 0){
-   write(fd2, "Hi, Mom", 7);
-   close(fd2);
-	 return 0;
- }
-
- wait(NULL);
- lseek(fd1, SEEK_SET,0);
- // We know that "Hi, Mom" is only 7 so we only need a 7 char buffer
- char rbuf[7]; 
- // Read in our 7 characters
- read(fd1, rbuf, 7);
- // Print the buffer appended to the string
- printf("My son said %s\n", rbuf);
- close(fd1);
- return 0;
+	pid = fork();
+	if (pid < 0) {
+		printf("fork failed");
+		exit(1);
+	} else if (pid == 0) {
+		fd2 = open("foo", O_WRONLY|O_CREAT|O_EXCL, 0600);
+		if (fd2 < 0) {
+			printf("ERROR: Output file cannot be opened or created");
+			exit(1);
+		}
+		char str[] = "Hi Mom";
+		write(fd2, &str, 6);
+	} else {
+		wait(&pid);
+		fd1 = open("foo", O_RDONLY);
+		if (fd1 < 0) {
+			printf("ERROR: Cannot read from foo");
+			exit(1);
+		}
+		printf("My son said ");
+		while(read(fd1, &buf, 1) > 0) {
+			printf("%c", buf);
+		}
+		printf("\n");
+	}
+	close(fd1);
+	close(fd2);
+	return 0;
 }

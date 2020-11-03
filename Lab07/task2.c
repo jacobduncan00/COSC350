@@ -10,7 +10,7 @@
 #include <unistd.h>
 
 void ouch(int sig) {
-	printf("\nOUCH - I got a signal %d\n", sig);
+	printf("OUCH - I got a signal %d\n", sig);
 }
 
 int main() {

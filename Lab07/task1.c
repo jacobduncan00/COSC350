@@ -36,8 +36,10 @@ int main()
 
 	printf("waiting for alarm to go off\n");
 	struct sigaction act;
-	memset(&act, 0, sizeof(act));
 	act.sa_handler = ding;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = 0;
+
 	if (sigaction(SIGALRM, &act, 0)) {
 		perror("sigaction error");
 		return 1;
