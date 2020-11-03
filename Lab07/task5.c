@@ -17,8 +17,8 @@
 		sigemptyset(&mask); // clear signal set
 		sigemptyset(&mask2); // clear signal set
 
-		sigaddset(&mask, 2); 
-		sigaddset(&mask2, 3);
+		sigaddset(&mask, SIGINT); 
+		sigaddset(&mask2, SIGQUIT);
 
 		sigprocmask(SIG_BLOCK, &mask, &orig_mask); // add blocking for mask
 		sigprocmask(SIG_BLOCK, &mask2, &orig_mask); // add blocking for mask2
