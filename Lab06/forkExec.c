@@ -1,8 +1,8 @@
 /*
-Jacob Duncan
-Lab06
-Task 4
-forkExec.c
+  * Jacob Duncan
+  * Lab06
+  * Task 4
+  * forkExec.c
 */
 
 #include <sys/types.h>
