@@ -68,7 +68,7 @@ int main(int argc, char* argv[]) {
 	void* fact;
 
 	pthread_join(sumThread, &sum);
-	pthread_join(factThread, fact);
+	pthread_join(factThread, &fact);
 
 	printf("Sum of arguments: %d\n", (int)sum);
 	printf("Factorial of arguments: %d\n", (int)fact);
