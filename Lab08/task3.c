@@ -15,11 +15,11 @@
 int main()
 {
   int length, size, inputNum1, inputNum2;
-  int fd[2]; // Reading and writing file descriptors for both processes
+  int fileDes[2]; // Reading and writing file descriptors for both processes
   pid_t pid;
   char setLine[MAXLINESIZE], readLine[MAXLINESIZE];
 
-  if (pipe(fd) < 0)
+  if (pipe(fileDes) < 0)
   {
     printf("ERROR: Pipe error\n");
     exit(1);
@@ -32,22 +32,22 @@ int main()
   }
   else if (pid > 0) // Parent Process
   {
-    close(fd[0]); // Close the input pipe for the parent process
+    close(fileDes[0]); // Close the input pipe for the parent process
 
     printf("Enter two integers: ");
 
     while ((size = read(STDIN_FILENO, setLine, MAXLINESIZE)) > 0)
     {
-      write(fd[1], setLine, size);
+      write(fileDes[1], setLine, size);
 
       printf("Enter two more integers: ");
     }
   }
   else // Child Process
   {
-    close(fd[1]);
+    close(fileDes[1]);
 
-    while ((length = read(fd[0], readLine, MAXLINESIZE)) > 0)
+    while ((length = read(fileDes[0], readLine, MAXLINESIZE)) > 0)
     {
       if (sscanf(readLine, "%d%d", &inputNum1, &inputNum2) == 2) // Get the 2 numbers from the String passed by parent
       {
