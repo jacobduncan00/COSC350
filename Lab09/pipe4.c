@@ -19,7 +19,7 @@ int main(int argc, char **argv)
   memset(buffer, '\0', sizeof(buffer));
   sscanf(argv[1], "%d", &file_descriptor);
   data_processed=read(file_descriptor, buffer,BUFSIZ);
-  close(file_descriptor);
+
   printf("%d - read %d bytes: %s\n", getpid(), data_processed, buffer);
   exit(EXIT_SUCCESS);
 }

@@ -18,10 +18,10 @@ void readInScores(int* scores) {
 	int validScore = 1;
 
 	for (i = 0; i < 20 && validScore; i++) {
-		printf("Enter test score %d: ", i + 1);
+		printf("Enter test score %d (-1 to stop): ", i + 1);
 		scanf("%d", &score);
 		while (score < -1) {
-			printf("ERROR: You input invalid score! Input a positive score");
+			printf("ERROR: You input invalid score! Input a positive score\n");
 			scanf("%d", &score);
 		}
 		scores[i] = score;
@@ -55,7 +55,7 @@ void calculateAverageAndMedium(int* scores) {
 	}
 
 	if (i == 0) {
-		printf("Scores array is empty therefore, average and medium are both 0");
+		printf("Scores array is empty therefore, average and medium are both 0\n");
 		pthread_exit(NULL);
 	}
 
@@ -63,7 +63,7 @@ void calculateAverageAndMedium(int* scores) {
 	average = (float)totalOfValidScores / i;
 
 	// Calculate Medium
-	if (i % 2 != 0) { // If number is odd
+	if (i % 2 == 0) { // If number is odd
 		int rhs = (i/2)-1;
 		int lhs = (i/2);
 		medium = (float)(scores[rhs] + scores[lhs]) / 2; // Gets median value of scores
@@ -87,7 +87,7 @@ void calculateMinAndMax(int* scores) {
 	}
 
 	if (i == 0) {
-		printf("Scores array is empty, cannot calculate highest and lowest as there are no scores!");
+		printf("Scores array is empty, cannot calculate highest and lowest as there are no scores!\n");
 		pthread_exit(NULL);
 	}
 
@@ -98,7 +98,7 @@ void calculateMinAndMax(int* scores) {
 void clearBuffer(int* scores) {
 	int i;
 
-	printf("CLEARING BUFFER ");
+	printf("CLEARING BUFFER\n");
 	for(i = 0; i < 20; i++) {
 		scores[i] = 0;
 		printf("%d ", scores[i]);
@@ -116,7 +116,7 @@ int main(int argc, char* argv[]) {
 
 	code = pthread_create(&T[0], NULL, readInScores, (void *)scores);
 	if (code) { 
-		printf("ERROR: Cannot create thread to read in scores");
+		printf("ERROR: Cannot create thread to read in scores\n");
 		exit(-1);
 	}
 
@@ -124,13 +124,13 @@ int main(int argc, char* argv[]) {
 
 	code = pthread_create(&T[1], NULL, calculateAverageAndMedium, (void *)scores);
 	if (code) { 
-		printf("ERROR: Cannot create thread to calculate average and median scores");
+		printf("ERROR: Cannot create thread to calculate average and median scores\n");
 		exit(-1);
 	}
 
 	code = pthread_create(&T[2], NULL, calculateMinAndMax, (void *)scores);
 	if (code) { 
-		printf("ERROR: Cannot create thread to calculate min and max scores");
+		printf("ERROR: Cannot create thread to calculate min and max scores\n");
 		exit(-1);
 	}
 
@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
 
 	code = pthread_create(&T[3], NULL, clearBuffer, (void *)scores);
 	if (code) { 
-		printf("ERROR: Cannot create thread to clear the buffer");
+		printf("ERROR: Cannot create thread to clear the buffer\n");
 		exit(-1);
 	}
 

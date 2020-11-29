@@ -4,7 +4,8 @@
  Task 4
  pipeFifo.c
 */
-
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -25,11 +26,14 @@ int main(int argc, char* argv[])
 
     memset(buffer, '\0', 3);
     fifo = mkfifo(fifo_name, 0777);
+
     fd = open(fifo_name, O_RDWR);
     data_processed = write(fd, some_data, strlen(some_data));
+
     printf("Wrote %d bytes. \n", data_processed);
     data_processed = read(fd, buffer, 3);
     printf("Read %d bytes: %s \n", data_processed, buffer);
+
     free(buffer);
     exit(EXIT_SUCCESS);
 }
