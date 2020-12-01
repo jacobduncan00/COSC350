@@ -15,52 +15,56 @@
 #include <pthread.h>
 
 int buffer[10];
-int index = 0;
+int ind = 0;
+
+void printBuffer(){
+    int j;
+    for (j = 0; j < 10; j++)
+    {
+      printf("%d ", buffer[j]);
+    }
+    printf("\n\n");
+}
+
+int produceItem() {
+  return rand() % 9 + 1;
+}
 
 void producer()
 {
+  int item;
   while (1)
   {
-    int item = rand() % 10;
-    if (index < 10)
+    item = produceItem();
+    if (ind < 10)
     {
-      buffer[index++] = item;
+      buffer[ind++] = item;
+      printf("Producing %d\n", item);
+      printBuffer();
     }
     else
     {
       printf("No space in buffer to insert! \n");
     }
-    printf("Producing %d\n", item);
-    int i;
-    for (i = 0; i < 10; i++)
-    {
-      printf("%d ", buffer[i]);
-    }
-    printf("");
     sleep(1);
   }
 }
+
 void consumer()
 {
   while (1)
   {
-    int temp = buffer[index - 1];
-    if (index >= 0)
+    int temp = buffer[ind - 1];
+    if (ind > 0)
     {
-      index--;
-      buffer[index] = 0;
+      ind--;
+      buffer[ind] = 0;
+      printf("Consuming %d\n", temp);
     }
     else
     {
       printf("No value to remove from buffer!\n");
     }
-    printf("Consuming %d\n", temp);
-    int i;
-    for (i = 0; i < 10; i++)
-    {
-      printf("%d ", buffer[i]);
-    }
-    printf("");
     sleep(2);
   }
 }

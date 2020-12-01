@@ -22,13 +22,22 @@ semaphore full = 1;
 
 int semid;
 int buffer[SIZE];
-int index = 0;
+int ind = 0;
+
+void printBuffer() {
+    int j;
+    for (j = 0; j < 10; j++)
+    {
+      printf("%d ", buffer[j]);
+    }
+    printf("\n\n");
+}
 
 void insert(int i)
 {
-  if (index < SIZE)
+  if (ind < 10)
   {
-    buffer[index++] = i;
+    buffer[ind++] = i;
   }
   else
   {
@@ -36,13 +45,13 @@ void insert(int i)
   }
 }
 
-int remove()
+int removeItem()
 {
-  if (index >= 0)
+  if (ind > 0)
   {
-    int temp = buffer[index - 1];
-    index--;
-    buffer[index] = 0;
+    int temp = buffer[ind - 1];
+    ind--;
+    buffer[ind] = 0;
     return temp;
   }
   else
@@ -73,22 +82,17 @@ void down(int semNum)
 
 void *producer()
 {
-  int i;
+  int item;
   while (1)
   {
-    i = rand() % 9 + 1; // random number between 1 - 10
+    item = rand() % 9 + 1; // random number between 1 - 10 to insert into buffer
     down(empty);
     down(mutex);
-    printf("Producing: %d\n", i);
-    insert(i);
+    printf("Producing: %d\n", item);
+    insert(item);
     up(mutex);
     up(full);
-    int j;
-    for (j = 0; j < SIZE; j++)
-    {
-      printf("%d ", buffer[j]);
-    }
-    printf("\n");
+    printBuffer();
     sleep(1);
   }
 }
@@ -100,12 +104,12 @@ void *consumer()
   {
     down(full);
     down(mutex);
-    i = remove();
+    i = removeItem();
     up(mutex);
     up(empty);
     printf("Consuming: %d\n", i);
     int j;
-    for (j = 0; j < SIZE; j++)
+    for (j = 0; j < 10; j++)
     {
       printf("%d ", buffer[j]);
     }
@@ -117,6 +121,9 @@ void *consumer()
 int main(int argc, char *argv[])
 {
   key_t key;
+  union semun arg;
+  pthread_t T[2];
+
   if ((key = ftok("task3.c", 'B')) == -1)
   {
     perror("ERROR [MAIN]: ftok() error!\n");
@@ -129,17 +136,9 @@ int main(int argc, char *argv[])
     perror("ERROR [MAIN]: semget() error!\n");
     exit(1);
   }
-
-  union semun arg;
+  
   arg.val = 1; // testing val 1
   if (semctl(semid, mutex, SETVAL, arg) == -1)
-  {
-    perror("ERROR [MAIN]: semctl() error!\n");
-    exit(1);
-  }
-
-  arg.val = 0; // val 0
-  if (semctl(semid, full, SETVAL, arg) == -1)
   {
     perror("ERROR [MAIN]: semctl() error!\n");
     exit(1);
@@ -152,7 +151,13 @@ int main(int argc, char *argv[])
     exit(1);
   }
 
-  pthread_t T[2];
+  arg.val = 0; // val 0
+  if (semctl(semid, full, SETVAL, arg) == -1)
+  {
+    perror("ERROR [MAIN]: semctl() error!\n");
+    exit(1);
+  }
+
   pthread_create(&T[0], NULL, producer, (void *)&semid);
   pthread_create(&T[1], NULL, consumer, (void *)&semid);
   pthread_join(T[0], NULL);

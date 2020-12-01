@@ -21,6 +21,15 @@ typedef struct MSGBUF
     int two;
 } MsgBuffer;
 
+void handleEnd(int Qid) {
+     // Removing the message queue, using msgctl to remove the IPC identifier
+    if (msgctl(Qid, IPC_RMID, NULL) == -1)
+    {
+        perror("ERROR: msgctl() error!");
+        exit(1);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // Sets key value to msgQsnd.c
@@ -44,7 +53,7 @@ int main(int argc, char *argv[])
     buf.type = 1; // Set the message type to 1, must be > 0. Used by the receiving process for message selection
     char *userInput = (char *)calloc(256, sizeof(int));
 
-    puts("Enter two inerger values: ");
+    puts("Enter two integer values: ");
 
     // Reading in 2 integers from the user
     while (fgets(userInput, 256, stdin), !feof(stdin))
@@ -59,11 +68,7 @@ int main(int argc, char *argv[])
         puts("Enter two integer values: ");
     }
 
-    // Removing the message queue, using IPC_RMID to remove the IPC identifier
-    if (msgctl(Qid, IPC_RMID, NULL) == -1)
-    {
-        perror("ERROR: msgctl() error!");
-        exit(1);
-    }
+    (void) signal(EOF, handleEnd); // ^D to end program
+
     return 0;
 }
