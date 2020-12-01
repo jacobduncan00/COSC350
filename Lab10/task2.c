@@ -15,7 +15,8 @@
 #include <pthread.h>
 
 int buffer[10];
-int ind = 0;
+int ind = 0; // don't know if we need this global variable for the buffer index
+             // probably a better way of doing this
 
 void printBuffer(){
     int j;
@@ -26,6 +27,7 @@ void printBuffer(){
     printf("\n\n");
 }
 
+// Makes a random number between 1 and 9 to put into the buffer
 int produceItem() {
   return rand() % 9 + 1;
 }

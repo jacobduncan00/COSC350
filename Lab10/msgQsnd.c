@@ -21,13 +21,8 @@ typedef struct MSGBUF
     int two;
 } MsgBuffer;
 
-void handleEnd(int Qid) {
-     // Removing the message queue, using msgctl to remove the IPC identifier
-    if (msgctl(Qid, IPC_RMID, NULL) == -1)
-    {
-        perror("ERROR: msgctl() error!");
-        exit(1);
-    }
+void handleEnd() {
+    printf("Terminating");
 }
 
 int main(int argc, char *argv[])
@@ -55,20 +50,40 @@ int main(int argc, char *argv[])
 
     puts("Enter two integer values: ");
 
-    // Reading in 2 integers from the user
-    while (fgets(userInput, 256, stdin), !feof(stdin))
-    {
+    while(1) {
+        fgets(userInput, 256, stdin);
+        if (feof(stdin)) {
+            printf("EOF");
+            buf.one = -1;
+            buf.two = -1;
+            // Removing the message queue, using msgctl to remove the IPC identifier
+            if (msgsnd(Qid, (MsgBuffer *)&buf, 2 * sizeof(int), 0) == -1)
+            {
+                perror("ERROR: msgsnd() error!");
+            }
+            printf("SENDING EOF TO msgQrcv.c\n");
+            if (msgctl(Qid, IPC_RMID, NULL) == -1)
+            {
+                perror("ERROR: msgctl() error!");
+                exit(1);
+            }
+            return 0;
+        }
         // Converting the input into 2 integers
         sscanf(userInput, "%d%d", &buf.one, &buf.two);
+        // printf("%d == %d", buf.one, buf.two);
+        if (buf.two == -10) {
+            printf("You only inserted 1 value!\n");
+        }
         // Sending the MsgBuffer struct, with our 2 integers, to the message queue
-        if (msgsnd(Qid, (MsgBuffer *)&buf, 2 * sizeof(int), 0) == -1)
+        else if (msgsnd(Qid, (MsgBuffer *)&buf, 2 * sizeof(int), 0) == -1)
         {
             perror("ERROR: msgsnd() error!");
         }
+        buf.one = -10; // Clear buffer with custom value
+        buf.two = -10; // Clear buffer with custom value
         puts("Enter two integer values: ");
     }
-
-    (void) signal(EOF, handleEnd); // ^D to end program
 
     return 0;
 }

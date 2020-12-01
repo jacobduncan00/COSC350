@@ -46,12 +46,13 @@ int main(int argc, char *argv[])
     // Reads the message from the buffer and store into MsgBuffer object
     if (msgrcv(Qid, (MsgBuffer *)&buf, 2 * sizeof(int), 0, 0) == -1)
     {
-      perror("ERROR: msgrcv() error!");
-      exit(1);
-    }
-
+      perror("msgQsnd.c sent termination, killing this program");
+      msgctl(Qid, IPC_RMID, NULL);
+      exit(0);
+    } 
     printf("The sum of the digits recieved from [msgQsnd.c] is %d \n", buf.one + buf.two);
   }
+
 
   return 0;
 }

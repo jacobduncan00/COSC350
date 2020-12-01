@@ -22,7 +22,7 @@ semaphore full = 1;
 
 int semid;
 int buffer[SIZE];
-int ind = 0;
+int ind = 0; // Need better way of doing this
 
 void printBuffer() {
     int j;
